@@ -109,11 +109,28 @@ collectors:
   - netdev
 collector_opts:
   netdev:
+    log_level: DEBUG
     whitelist:
     blacklist:
       - docker0
       - lo
+logging:
+  - name: root
+    level: INFO
+  - name: foomodule.barcollector
+    level: WARNING
+    target: /path/to/my/collector/logfile.log
 ```
+
+The `collector_opts` can optionally contain a `log_level` entry which
+will configure the logging-level for that specific collector. Note that
+support for this must be implemented by each individual collector.
+
+Logging can optionally be configured for any logger. The entries must
+specify the name of the logger and can optionally specify a
+logging-level (default: stay at whatever the default logging-level for
+that logger is) and/or can specify a file to write the log to (default:
+log to stderr).
 
 ### Start-up Configuration
 
